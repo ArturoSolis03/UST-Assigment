@@ -1,0 +1,56 @@
+
+<html>
+    <script>
+        function add(){
+            const number1 = document.getElementById('number1');
+            const number2 = document.getElementById('number2');
+            //divElement.textContent = parseInt(number1.value)+ parseInt(number2.value);
+            
+           
+            
+            const gender2 = document.getElementsByName('gender');
+            const genderElement = document.getElementById('Result');
+            genderElement.textContent = gender2.value; 
+            console.log(gender2.value);
+
+            const divElement = document.getElementById('Result');
+            const radio = document.getElementsByName('gender');
+            radio.forEach(element => {
+            if(element.checked){
+                divElement.textContent = element.getAttribute('value');
+                console.log(element);
+                }
+            });
+
+
+            localStorage.setItem('radioValue',number1.id);
+        
+            console.log(localStorage.getItem('radioValue'))
+            
+
+
+            
+        
+
+
+        }
+
+        function addNewField(){
+
+            const htmlElement = '<input type="radio"  name="gender" value="male">';
+            const element3 = document.getElementById("Result");
+            element3.innerHTML += htmlElement
+        }
+
+       
+
+    
+    </script>
+    <body>
+        <input type = "radio" id="number1" name = "gender" value="male">male
+        <input type = "radio" id="number2" name = "gender" value="female">female
+        <button onclick="addNewField()">add New Field</button>
+        <button onclick = "add()" >add</button>
+        Result: <div id="Result"></div>
+    </body>
+</html>

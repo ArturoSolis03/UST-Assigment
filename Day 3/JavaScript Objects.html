@@ -1,0 +1,35 @@
+
+<html>
+    <script>
+        // const o1 = new Object();
+        // o1.age = 10;
+        // o1.limit = 20;
+        // delete o1.age;
+
+        const book1={
+            title: 'Learn JS',
+            price: 100,
+            authors:[{
+                name: 'Rodolfo'
+            },
+            {
+                name: 'Oscar'
+            }],
+            borrow: function(){
+                console.log('title of the book is: ' + this.title);
+                console.log('author is: ' = this.authors[0].name);
+            },
+
+            return: function(){
+                console.log(this.price);
+                this.borrow();
+            }
+
+        }
+        const {title, price} = book1; //destructuring 
+        book1.borrow();
+        title = 'Learn React';
+        console.log(title);
+        console.log(book1.title);
+    </script>
+</html>

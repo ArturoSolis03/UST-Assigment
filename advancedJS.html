@@ -1,0 +1,28 @@
+
+<html>
+    <head>
+        <script>
+            //scope
+            var global = 1;
+            function foo(){
+                var local = 2;
+                console.log(global);
+
+                for(let i=0; i<3; i++){
+                    console.log(i)
+                }
+            }
+            foo();
+
+            function foo1(){
+                this. a = 1;
+                function bar(){
+                    console.log(a)
+                }
+                bar();
+            }
+            foo1();
+            //console.log(local);
+        </script>
+    </head>
+</html>
