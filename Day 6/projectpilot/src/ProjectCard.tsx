@@ -1,4 +1,5 @@
 import { Project } from './components/Projects';
+import { Link } from 'react-router';
  
 interface ProjectCardProps {
   project: Project;
@@ -21,17 +22,24 @@ function ProjectCard( props: ProjectCardProps) {
 <div className="card">
 <img src={project.imageUrl} alt={project.name} />
 <section className="section dark">
-<h5 className="strong">
-<strong>{project.name}</strong>
-</h5>
-<p>{formatDescription(project.description)}</p>
-<button className=" bordered" onClick={() => {
-            handleEditClick(project);
-          }}>
- <span className="icon-edit "></span>
-  Edit
-</button>
-</section>
+  <Link to={'/projects/' + project.id}>
+    <h5 className="strong">
+    <strong>{project.name}</strong>
+    </h5>
+    <p>{formatDescription(project.description)}</p>
+    <p>Budget : {project.budget.toLocaleString()}</p>
+  </Link>
+  <button
+    type="button"
+    className=" bordered"
+    onClick={() => {
+    handleEditClick(project);
+    }}
+   >
+    <span className="icon-edit "></span>
+    Edit
+  </button>
+  </section>
 </div>
   );
 }

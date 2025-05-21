@@ -6,6 +6,7 @@ import ProjectsPage from './ProjectsPage';
 import { MOCK_PROJECTS } from './components/MockProjects';
 import { BrowserRouter, Routes, Route, NavLink} from 'react-router';
 import HomePage from './home/HomePage';
+import ProjectPage from './projects/ProjectPage';
 
 function App() {
 
@@ -27,6 +28,7 @@ function App() {
         <Routes>
          <Route path="/" element={<HomePage />} />
           <Route path="/projects" element={<ProjectsPage />} />
+            <Route path="/projects/:id" element={<ProjectPage />} />
         </Routes>
       </div>
     </BrowserRouter>
