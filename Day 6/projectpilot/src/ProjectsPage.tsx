@@ -1,79 +1,73 @@
-import { MOCK_PROJECTS } from './components/MockProjects'
+import React, { useEffect, useState } from 'react';
+import { useProjects } from './projects/projectHooks'
 import ProjectList from './components/ProjectList';
 
-import { useProjects } from './projects/projectHooks';
-
-
 function ProjectsPage() {
-
   const {
-    projects,
-    loading,
+    data,
+    isPending,
     error,
-    setCurrentPage,
-    saveProject,
-    saving,
-    savingError,
+    isError,
+    isFetching,
+    page,
+    setPage,
   } = useProjects();
-  
-  const handleMoreClick = () => {
-    setCurrentPage((currentPage) => currentPage + 1);
-  };
 
-    
-
-   
   return (
     <>
-    <h1>Projects</h1>
-    {saving && <span className="toast">Saving...</span>}
+      <h1>Projects</h1>
 
-    {error && (
-        <div className="row">
-         <div className="card large error">
-            <section>
-              <p>
-                <span className="icon-alert inverse "></span>
-                {error}
-              </p>
-            </section>
-          </div>
-        </div>
-      )}
-      {savingError && (
-          <div className="card large error">
-           <section>
-              <p>
-                <span className="icon-alert inverse "></span>
-                {savingError}
-              </p>
-            </section>
-          </div>
-        )}
-
-   <ProjectList onSave={saveProject} projects={projects} />
-
-  {!loading && !error && (
-        <div className="row">
-          <div className="col-sm-12">
-            <div className="button-group fluid">
-              <button className="button default" onClick={handleMoreClick}>
-                More...
-             </button>
+      {data ? (
+        <>
+          {isFetching && !isPending && (
+            <span className="toast">Refreshing...</span>
+          )}
+          <ProjectList projects={data} />
+          <div className="row">
+            <div className="col-sm-4">Current page: {page + 1}</div>
+            <div className="col-sm-4">
+              <div className="button-group right">
+                <button
+                  className="button "
+                  onClick={() => setPage((oldPage) => oldPage - 1)}
+                  disabled={page === 0}
+                >
+                  Previous
+                </button>
+                <button
+                  className="button"
+                  onClick={() => {
+                    if (data && data.length === 10) {
+                      setPage((oldPage) => oldPage + 1);
+                    }
+                  }}
+                  disabled={data.length != 10}
+                >
+                  Next
+                </button>
+              </div>
             </div>
           </div>
-        </div>
-      )}
-
-   {loading && (
+        </>
+      ) : isPending ? (
         <div className="center-page">
           <span className="spinner primary"></span>
           <p>Loading...</p>
         </div>
-      )}
-  </>
+      ) : isError && error instanceof Error ? (
+        <div className="row">
+          <div className="card large error">
+            <section>
+              <p>
+                <span className="icon-alert inverse "></span>
+                {error.message}
+              </p>
+            </section>
+          </div>
+        </div>
+      ) : null}
+    </>
   );
-  
 }
 
 export default ProjectsPage;
