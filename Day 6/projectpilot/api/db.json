@@ -976,6 +976,20 @@
       "budget": "23",
       "isActive": true,
       "id": 100
+    },
+    {
+      "name": "Example 2",
+      "description": "This is and example of create new project",
+      "budget": "46",
+      "isActive": true,
+      "id": 101
+    },
+    {
+      "name": "Example 3",
+      "description": " This is an example 3",
+      "budget": "34",
+      "isActive": true,
+      "id": 102
     }
   ]
 }
