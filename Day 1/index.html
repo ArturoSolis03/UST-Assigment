@@ -1,0 +1,38 @@
+
+<html>
+    <script>
+
+        const a = 1;
+
+        var b = 5;
+        const numbers = [1, 2, 3, 11, 5, -1];
+        numbers.sort(function(a,b){
+            return b - a;
+        });
+
+        const result = numbers.find(params => paramas == 1 //return boolean
+
+        );
+        
+        const newArray = numbers.map(function(a){
+            return  a%2 == 0 ? a + 10: a; // ternary operator
+        })
+
+        function buttonClick(event){ //event handler function
+            console.log(event.target.name);
+            return 120; // any returned value is lost
+        }
+
+        console.log(numbers);
+        cosole.log(newArray);
+
+    </script>
+
+
+
+    <body>
+        <input type = "text" onclick="procesClick(event)" name="Text 1">
+        <button onclick="buttonClick(event)" name = "Button1">Button 1</button>
+        <button onclick="buttonClick(event)" name = "Button2">Button 2</button>
+    </body>
+</html>

@@ -1,0 +1,27 @@
+
+
+<html>
+    <script>
+    const select = (event) =>{
+        const selectCar = event.target.value;
+        document.getElementById("selectCar").innerText = selectCar;
+    }
+    </script>
+    <body>
+        <input type = "text" >
+        <input type = "text" >
+        <input type = "radio" name="gender">Male
+        <input type = "radio" name="gender">Female
+
+        <select name = "cars" id="cars" onchange="select(event)">
+         <option value="volvo">Volvo</option>
+         <option value="saab">Saab</option>
+         <option value="opel">Opel</option>
+         <option value="audi">Audi</option>
+
+        </select>
+        <label id="selectCar"></label>
+
+
+    </body>
+</html>
