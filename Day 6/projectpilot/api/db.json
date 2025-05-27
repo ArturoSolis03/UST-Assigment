@@ -1,16 +1,6 @@
 {
   "projects": [
     {
-      "id": 1,
-      "name": "Johnson - Kutch",
-      "description": "Fully-configurable intermediate framework. Ullam occaecati libero laudantium nihil voluptas omnis qui modi qui.",
-      "imageUrl": "/assets/placeimg_500_300_arch4.jpg",
-      "contractTypeId": 3,
-      "contractSignedOn": "2013-08-04T22:39:41.473Z",
-      "budget": 54637,
-      "isActive": false
-    },
-    {
       "id": 2,
       "name": "Dillesik LLCs",
       "description": "Re-contextualized dynamic moratorium. Aut nulla soluta numquam qui dolor architecto et facere dolores.",
@@ -761,16 +751,6 @@
       "isActive": true
     },
     {
-      "id": 77,
-      "name": "Absh",
-      "description": "Ergonomic mission-critical knowledge user. Consequatur pariatur eos molestiae qui aut dolorem laudantium nesciunt doloribus.",
-      "imageUrl": "/assets/placeimg_500_300_arch6.jpg",
-      "contractTypeId": 6,
-      "contractSignedOn": "2018-08-16T18:49:06.477Z",
-      "budget": 98123,
-      "isActive": true
-    },
-    {
       "id": 78,
       "name": "Prosacco, Goyette and Torphy",
       "description": "Organic value-added internet solution. Eum suscipit nobis magni qui iure omnis quos amet aut.",
@@ -990,6 +970,13 @@
       "budget": "34",
       "isActive": true,
       "id": 102
+    },
+    {
+      "name": "Example 3",
+      "description": "This is an example",
+      "budget": "34",
+      "isActive": true,
+      "id": 103
     }
   ]
 }
