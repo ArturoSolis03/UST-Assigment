@@ -9,12 +9,12 @@ export class AppController {
 
   @Get()
   findAll(){
-    return this.appService.getAll();
+    return this.appService.findAll();
   }
 
   @Get(':id')
   findOne(@Param('id') id: string){
-    return this.appService.getById(+id);
+    return this.appService.findOne(id);
   }
 
   @Post()
@@ -24,12 +24,12 @@ export class AppController {
 
   @Put(':id')
   update(@Param('id') id : string, @Body() dto: updateProjectDto){
-    return this.appService.update(+id, dto);
+    return this.appService.update(id, dto);
   }
 
   @Delete(':id')
   remove(@Param('id') id : string){
-    return this.appService.remove(+id);
+    return this.appService.remove(id);
   }
 
 

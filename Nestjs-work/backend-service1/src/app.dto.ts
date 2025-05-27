@@ -1,4 +1,5 @@
 
+import { Type } from 'class-transformer';
 import { IsBoolean, IsNotEmpty, IsNumber, IsOptional, IsString, MaxLength, Min } from 'class-validator';
  
 export class CreateProjectDto {
@@ -12,11 +13,13 @@ export class CreateProjectDto {
   @MaxLength(2000)
   description: string;
  
+  @Type(() => Number)
   @IsNumber()
   @Min(1)
   budget: number;
  
+  @Type(() => Boolean)
   @IsBoolean()
   @IsOptional()
-  isActive?: boolean;
+  isActive: boolean;
 }
