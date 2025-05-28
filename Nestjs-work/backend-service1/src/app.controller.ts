@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, InternalServerErrorException, Param, Post, Put } from '@nestjs/common';
+import { Body, Controller, Delete, Get, InternalServerErrorException, Param, Post, Put, Query } from '@nestjs/common';
 import { AppService } from './app.service';
 import { CreateProjectDto } from './app.dto';
 import { updateProjectDto } from './appUpdate.dto';
@@ -13,8 +13,13 @@ export class AppController {
 }
 
   @Get()
-  findAll(){
-    return this.appService.getAll();
+  async findAll(
+    @Query('page') page = '0',
+    @Query('limit') limit = '10',
+  ){
+    const pageNumber = parseInt(page, 10); 
+    const limitNumber = parseInt(limit, 10);
+    return this.appService.getAll(pageNumber, limitNumber);
   }
 
   @Get(':id')

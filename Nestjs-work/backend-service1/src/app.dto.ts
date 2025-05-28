@@ -4,6 +4,9 @@ import { IsBoolean, IsNotEmpty, IsNumber, IsOptional, IsString, MaxLength, Min }
  
 export class CreateProjectDto {
   @IsString()
+  imageUrl: string;
+
+  @IsString()
   @IsNotEmpty()
   @MaxLength(100)
   name: string;

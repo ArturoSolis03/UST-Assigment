@@ -14,8 +14,9 @@ export class AppService {
     @InjectModel(Project.name) private projectModel: Model<ProjectDocument>,
   ) {}
 
-  getAll(): Promise<Project[]>{
-    return this.projectModel.find().exec();
+  async getAll(page: number = 1, limit: number = 10): Promise<Project[]>{
+    const skip = page * limit;
+    return this.projectModel.find().skip(skip).limit(limit).exec();
   }
 
   async findOne(id: string) : Promise<Project | null>{

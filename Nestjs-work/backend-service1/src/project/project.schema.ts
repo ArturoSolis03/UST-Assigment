@@ -7,6 +7,9 @@ export type ProjectDocument = Project & Document;
 
 @Schema({timestamps: true})
 export class Project{
+    @Prop({required: true})
+    imageUrl: string;
+
     @Prop({required: true, maxlength: 100})
     name: string;
 
