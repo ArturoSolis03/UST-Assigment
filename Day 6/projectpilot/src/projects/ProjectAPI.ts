@@ -16,10 +16,11 @@ const projectAPI = {
     return response.data;
   },
 
-  getAll: async (): Promise<Project[]> =>{
-    return projectAPI.get();
-  },
- 
+  getAll: async (page = 1, limit = 10): Promise<Project[]> => {
+  const response = await axios.get(`${API_URL}?page=${page}&limit=${limit}`);
+  return response.data;
+},
+
   getById: async (id: string) => {
     const response = await axios.get(`${API_URL}/${id}`);
     return response.data;
