@@ -1,5 +1,5 @@
 export class Project {
-  id: number | undefined;
+  id: string = ""; 
   name: string = '';
   description: string = '';
   imageUrl: string = '';
@@ -23,5 +23,6 @@ export class Project {
       this.contractSignedOn = new Date(initializer.contractSignedOn);
     if (initializer.budget) this.budget = initializer.budget;
     if (initializer.isActive) this.isActive = initializer.isActive;
+    
   }
 }

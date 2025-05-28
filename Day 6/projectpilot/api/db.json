@@ -521,16 +521,6 @@
       "isActive": false
     },
     {
-      "id": 54,
-      "name": "Anderson LLC",
-      "description": "Diverse incremental algorithm. Expedita laudantium sit quisquam sit nobis eum nam ea natus.",
-      "imageUrl": "/assets/placeimg_500_300_arch10.jpg",
-      "contractTypeId": 2,
-      "contractSignedOn": "2015-01-21T07:03:49.836Z",
-      "budget": 74221,
-      "isActive": false
-    },
-    {
       "id": 55,
       "name": "Marvin, Stroman and Turcotte",
       "description": "Self-enabling empowering neural-net. Repellat occaecati repudiandae dolores blanditiis temporibus quia et ab et.",
@@ -722,7 +712,7 @@
     },
     {
       "id": 74,
-      "name": "Armstrong, Crona and Ziemann",
+      "name": "Armstrong",
       "description": "Switchable bifurcated task-force. Hic sed at et id et et qui quis dolores.",
       "imageUrl": "/assets/placeimg_500_300_arch6.jpg",
       "contractTypeId": 2,
@@ -921,16 +911,6 @@
       "isActive": true
     },
     {
-      "id": 95,
-      "name": "Armstrong - Hands",
-      "description": "Persistent 3rd generation capability. Sint omnis asperiores voluptas sapiente delectus blanditiis earum ut voluptatem.",
-      "imageUrl": "/assets/placeimg_500_300_arch6.jpg",
-      "contractTypeId": 2,
-      "contractSignedOn": "2010-09-24T21:02:41.601Z",
-      "budget": 38853,
-      "isActive": false
-    },
-    {
       "id": 97,
       "name": "Towne - Altenwerth",
       "description": "Self-enabling 24/7 leverage. Itaque voluptas quisquam illo dolorem tenetur ex et quidem voluptatem.",
@@ -977,6 +957,39 @@
       "budget": "34",
       "isActive": true,
       "id": 103
+    },
+    {
+      "name": "Example 4",
+      "description": "This is an example 4",
+      "budget": "44",
+      "isActive": true,
+      "imageUrl": "/assets/placeimg_500_300_arch1.jpg",
+      "id": 104
+    },
+    {
+      "name": "Example 5",
+      "description": "This is an example 5",
+      "budget": "894905",
+      "isActive": true,
+      "imageUrl": "/assets/placeimg_500_300_arch10.jpg",
+      "id": 105
+    },
+    {
+      "name": "Example 6",
+      "description": "This is an example 6",
+      "budget": "34241413",
+      "isActive": true,
+      "imageUrl": "/assets/placeimg_500_300_arch7.jpg",
+      "id": 106
+    },
+    {
+      "name": "Example 7",
+      "description": "This is an example 7",
+      "budget": "35245245",
+      "isActive": true,
+      "imageUrl": "/assets/placeimg_500_300_arch10.jpg",
+      "createdAt": "2025-05-28T16:50:44.096Z",
+      "id": 107
     }
   ]
 }

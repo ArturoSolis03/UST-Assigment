@@ -1,6 +1,3 @@
-
-
- 
 import { useState } from 'react';
 import { projectAPI } from './ProjectAPI';
 import {
@@ -9,21 +6,38 @@ import {
   useQueryClient,
 } from '@tanstack/react-query';
 import { Project } from '../components/Projects';
-
+ 
 export function useProjects() {
   const [page, setPage] = useState(0);
-  let queryInfo = useQuery({
+ 
+  const queryInfo = useQuery({
     queryKey: ['projects', page],
-    queryFn: () => projectAPI.get(page + 1),
-    placeholderData: (previousData) => previousData ?? [],
+    queryFn: () => projectAPI.get(),
+    placeholderData: [],
   });
-  console.log(queryInfo);
+ 
   return { ...queryInfo, page, setPage };
 }
- export function useSaveProject() {
+ 
+export function useSaveProject() {
   const queryClient = useQueryClient();
+ 
   return useMutation({
-    mutationFn: (project: Project) => projectAPI.put(project),
-    onSuccess: () => queryClient.invalidateQueries({ queryKey: ["projects"] }),
+    mutationFn: (project: Project) => projectAPI.update(project.id, project),
+    onSuccess: () => {
+      // Correct usage: max 2 arguments
+      queryClient.invalidateQueries({queryKey: ['projects']});
+    },
+  });
+}
+ 
+export function useDeleteProject() {
+  const queryClient = useQueryClient();
+ 
+  return useMutation({
+    mutationFn: (id: string) => projectAPI.delete(id),
+    onSuccess: () => {
+      queryClient.invalidateQueries({queryKey: ['projects']});
+    },
   });
 }

@@ -1,11 +1,45 @@
 
 import axios from 'axios';
+import type { Project } from '../src/components/Projects';
  
-const API_URL = 'http://localhost:4000/projects';
+const API_URL = 'http://localhost:3000/projects';
 
-export const projectAPI = {
-  create: async (project: any) => {
-    const response = await axios.post(API_URL, project);
+const projectAPI = {
+
+  find: async (id: string): Promise<Project> => {
+  const response = await axios.get(`${API_URL}/${id}`);
+  return response.data; 
+},
+
+  get: async (): Promise<Project[]> => {
+    const response = await axios.get(API_URL);
     return response.data;
   },
+
+  getAll: async (): Promise<Project[]> =>{
+    return projectAPI.get();
+  },
+ 
+  getById: async (id: string) => {
+    const response = await axios.get(`${API_URL}/${id}`);
+    return response.data;
+  },
+ 
+  create: async (projectData: any) => {
+    const response = await axios.post(API_URL, projectData);
+    return response.data;
+  },
+ 
+  update: async (id: string, updatedData: any) => {
+    const response = await axios.put(`${API_URL}}/${id}`, updatedData);
+    return response.data;
+  },
+ 
+  delete: async (id: string | undefined) => {
+    const response = await axios.delete(`${API_URL}/${id}`);
+    return response.data;
+  }
 };
+
+export {projectAPI}
+ 

@@ -8,6 +8,7 @@ import { BrowserRouter, Routes, Route, NavLink} from 'react-router';
 import HomePage from './home/HomePage';
 import ProjectPage from './projects/ProjectPage';
 import CreateProjectPage from './CreateProjectPage';
+import ProjectDetail from './projects/ProjectDetail';
 
 function App() {
 
@@ -33,7 +34,8 @@ function App() {
          <Route path="/" element={<HomePage />} />
           <Route path="/projects" element={<ProjectsPage />} />
             <Route path="/projects/:id" element={<ProjectPage />} />
-            <Route path="/projects/create" element={<CreateProjectPage />} />
+            <Route path="/projects/create" element={<CreateProjectPage />}
+             />
         </Routes>
       </div>
     </BrowserRouter>

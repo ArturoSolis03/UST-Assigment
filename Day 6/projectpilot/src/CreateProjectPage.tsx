@@ -1,6 +1,7 @@
 
 import { useForm } from 'react-hook-form';
 import { projectAPI } from '../api/projectAPI';
+import { useNavigate } from 'react-router-dom';
 
 type FormValues ={
       name: string;
@@ -11,11 +12,38 @@ type FormValues ={
  
 export default function CreateProjectPage() {
   const { register, handleSubmit, reset, formState: { errors } } = useForm<FormValues>();
- 
+  const navigate = useNavigate();
+  const imageUrls = [
+      "/assets/placeimg_500_300_arch1.jpg",
+      "/assets/placeimg_500_300_arch2.jpg",
+      "/assets/placeimg_500_300_arch3.jpg",
+      "/assets/placeimg_500_300_arch4.jpg",
+      "/assets/placeimg_500_300_arch5.jpg",
+      "/assets/placeimg_500_300_arch6.jpg",
+      "/assets/placeimg_500_300_arch7.jpg",
+      "/assets/placeimg_500_300_arch8.jpg",
+      "/assets/placeimg_500_300_arch9.jpg",
+      "/assets/placeimg_500_300_arch10.jpg",
+      "/assets/placeimg_500_300_arch11.jpg",
+      "/assets/placeimg_500_300_arch12.jpg",
+  ];
+
+  
+
   const onSubmit = async (data: any) => {
-    await projectAPI.create(data);
+     
+      const randomImage = imageUrls[Math.floor(Math.random() * imageUrls.length)]
+
+      const newProject = {
+            ...data,
+            imageUrl: randomImage,
+            createdAt: new Date().toISOString(),
+      };
+
+    await projectAPI.create(newProject);
     alert("Project Created");
     reset();
+    navigate('/projects');
   };
  
   return (
