@@ -14,14 +14,17 @@ export class AppService {
     @InjectModel(Project.name) private projectModel: Model<ProjectDocument>,
   ) {}
 
-  findAll(): Promise<Project[]>{
+  getAll(): Promise<Project[]>{
     return this.projectModel.find().exec();
   }
 
-  async findOne(id: string) : Promise<Project>{
-    const project = await this.projectModel.findById(id).exec();
-    if(!project) throw new NotFoundException('Not found');
+  async findOne(id: string) : Promise<Project | null>{
+    const project = this.projectModel.findById(id);
+    if(!project){
+      throw new NotFoundException(`Project with ID ${id} not found`);
+    }
     return project;
+
   }
  
   create(createDto: CreateProjectDto) : Promise<Project>{
@@ -41,4 +44,15 @@ export class AppService {
     const res = await this.projectModel.findByIdAndDelete(id).exec();
     if(!res) throw new NotFoundException('Not found');
   }
+
+ 
+async healthCheck(): Promise<{ message: string }> {
+    try {
+      await this.projectModel.findOne(); // o .countDocuments()
+      return { message: 'Database is connected' };
+    } catch (error) {
+      throw new Error('Database connection failed');
+    }
+  }
+ 
 }

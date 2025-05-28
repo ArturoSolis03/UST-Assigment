@@ -7,7 +7,7 @@ import { ProjectModule } from './project/project.module';
 
 @Module({
   imports: [
-    MongooseModule.forRoot('mongodb://localhost:27017/projectsdb'),
+    MongooseModule.forRoot('mongodb://localhost:27017/projectdatabase'),
     ProjectModule,
   ],
 })

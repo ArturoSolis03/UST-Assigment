@@ -5,7 +5,7 @@ import { Document } from 'mongoose'
 
 export type ProjectDocument = Project & Document;
 
-@Schema()
+@Schema({timestamps: true})
 export class Project{
     @Prop({required: true, maxlength: 100})
     name: string;
@@ -21,3 +21,12 @@ export class Project{
 }
 
 export const ProjectSchema = SchemaFactory.createForClass(Project);
+
+ProjectSchema.set('toJSON', {
+  virtuals: true,
+  versionKey: false,
+  transform: (_doc, ret) => {
+    ret.id = ret._id;
+    delete ret._id;
+  },
+});

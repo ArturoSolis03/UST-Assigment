@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, Post, Put } from '@nestjs/common';
+import { Body, Controller, Delete, Get, InternalServerErrorException, Param, Post, Put } from '@nestjs/common';
 import { AppService } from './app.service';
 import { CreateProjectDto } from './app.dto';
 import { updateProjectDto } from './appUpdate.dto';
@@ -7,9 +7,14 @@ import { updateProjectDto } from './appUpdate.dto';
 export class AppController {
   constructor(private readonly appService: AppService) {}
 
+    @Get('health')
+  async checkDbConnection() {
+  return this.appService.healthCheck();
+}
+
   @Get()
   findAll(){
-    return this.appService.findAll();
+    return this.appService.getAll();
   }
 
   @Get(':id')
@@ -31,6 +36,8 @@ export class AppController {
   remove(@Param('id') id : string){
     return this.appService.remove(id);
   }
+
+
 
 
 }
