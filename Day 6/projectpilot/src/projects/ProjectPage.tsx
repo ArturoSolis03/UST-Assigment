@@ -1,27 +1,31 @@
-
 import { useEffect, useState } from 'react';
 import { projectAPI } from './ProjectAPI';
 import ProjectDetail from './ProjectDetail';
 import { Project } from '../components/Projects';
-import { useParams } from 'react-router-dom'; 
+import { useParams } from 'react-router-dom';
  
 function ProjectPage() {
   const [loading, setLoading] = useState(true);
   const [project, setProject] = useState<Project | null>(null);
   const [error, setError] = useState<string | null>(null);
-  const params = useParams<{ id: string }>(); 
- 
+  const params = useParams<{ id: string }>();
  
   const id = params.id;
  
   useEffect(() => {
-    if (!id) return; 
+    if (!id) return;
+ 
+    const token = localStorage.getItem('accessToken'); 
  
     setLoading(true);
     setError(null);
-
+ 
     projectAPI
-      .find(id) 
+      .find(id, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
       .then((data) => {
         setProject(data);
         setLoading(false);
@@ -54,7 +58,6 @@ function ProjectPage() {
 </div>
       )}
  
-      {/* Mostrar el detalle solo si project NO es null */}
       {project && <ProjectDetail key={project.id} project={project} />}
 </div>
   );

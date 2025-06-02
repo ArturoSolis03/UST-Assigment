@@ -30,13 +30,13 @@ const projectAPI = {
     return response.data;
   },
  
-  update: async (id: string, updatedData: any) => {
+  update: async (id: string, updatedData: any, ) => {
     const response = await axios.put(`${API_URL}}/${id}`, updatedData);
     return response.data;
   },
  
-  delete: async (id: string | undefined) => {
-    const response = await axios.delete(`${API_URL}/${id}`);
+  delete: async (id: string | undefined, config = {}) => {
+    const response = await axios.delete(`${API_URL}/${id}`, config);
     return response.data;
   }
 };

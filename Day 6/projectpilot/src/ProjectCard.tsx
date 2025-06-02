@@ -5,7 +5,7 @@ import { projectAPI } from './projects/ProjectAPI';
  
 interface ProjectCardProps {
   project: Project;
-  onEdit: (project: Project) => void; // puedes mantenerlo si lo usas en el padre
+  onEdit: (project: Project) => void;
   onDelete?: () => void;
 }
  
@@ -23,7 +23,13 @@ function ProjectCard(props: ProjectCardProps) {
     const confirmDelete = window.confirm(`Are you sure you want to delete "${project.name}"`);
     if (confirmDelete) {
       try {
-        await projectAPI.delete(project.id);
+        const token = localStorage.getItem('accessToken');
+        console.log(localStorage.getItem('accessToken'));
+        await projectAPI.delete(project.id, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
         if (onDelete) {
           onDelete();
         } else {
@@ -31,6 +37,7 @@ function ProjectCard(props: ProjectCardProps) {
         }
       } catch (error) {
         console.error("Error deleting a project", error);
+        alert("Failed to delete project. Please make sure you're signed in.");
       }
     }
   };
@@ -46,18 +53,25 @@ function ProjectCard(props: ProjectCardProps) {
  
   const handleSaveClick = async () => {
     try {
-      await projectAPI.update(editedProject.id, editedProject);
+      const token = localStorage.getItem('accessToken');
+      console.log(localStorage.getItem('accessToken'));
+      await projectAPI.update(editedProject.id, editedProject, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
       window.location.reload();
       setIsEditing(false);
-      onEdit(editedProject); // notifica al padre
+      onEdit(editedProject);
     } catch (error) {
       console.error("Error updating project", error);
+      alert("Failed to update project. Please make sure you're signed in.");
     }
   };
  
   const handleCancelClick = () => {
     setIsEditing(false);
-    setEditedProject(project); // descartar cambios
+    setEditedProject(project);
   };
  
   return (

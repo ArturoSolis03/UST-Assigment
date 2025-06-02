@@ -6,8 +6,8 @@ const API_URL = 'http://localhost:3000/projects';
 
 const projectAPI = {
 
-  find: async (id: string): Promise<Project> => {
-  const response = await axios.get(`${API_URL}/${id}`);
+  find: async (id: string, config = {}): Promise<Project> => {
+  const response = await axios.get(`${API_URL}/${id}`, config);
   return response.data; 
 },
 
@@ -26,18 +26,18 @@ const projectAPI = {
     return response.data;
   },
  
-  create: async (projectData: any) => {
-    const response = await axios.post(API_URL, projectData);
+  create: async (projectData: any, config = {}) => {
+    const response = await axios.post(API_URL, projectData, config);
     return response.data;
   },
  
-  update: async (id: string, updatedData: any) => {
-    const response = await axios.put(`${API_URL}/${id}`, updatedData);
+  update: async (id: string, updatedData: any, config = {}) => {
+    const response = await axios.put(`${API_URL}/${id}`, updatedData, config);
     return response.data;
   },
  
-  delete: async (id: string | undefined) => {
-    const response = await axios.delete(`${API_URL}/${id}`);
+  delete: async (id: string | undefined, config = {}) => {
+    const response = await axios.delete(`${API_URL}/${id}`, config);
     return response.data;
   }
 };
