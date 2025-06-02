@@ -3,7 +3,10 @@ import { AppService } from './app.service';
 import { CreateProjectDto } from './app.dto';
 import { updateProjectDto } from './appUpdate.dto';
 import { ApiTags, ApiOperation, ApiResponse, ApiQuery } from '@nestjs/swagger';
+import { UseGuards } from '@nestjs/common';
+import { JwtAuthGuard } from './auth/guards/jwt.guards';
 
+@UseGuards(JwtAuthGuard)
 @ApiTags('Projects')
 @Controller('projects')
 export class AppController {
