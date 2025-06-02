@@ -5,12 +5,13 @@ import ProjectPage from './projects/ProjectPage';
 import CreateProjectPage from './CreateProjectPage';
 import ProtectedRoute from './auth/ProtectedRoute';
 import { useEffect, useState } from 'react';
-
+import './App.css';
+ 
  
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
  
-  // Este useEffect solo debe correr una vez al montar el componente
+ 
   useEffect(() => {
     const token = localStorage.getItem('accessToken');
     setIsAuthenticated(!!token);

@@ -68,11 +68,11 @@ function ProjectsPage() {
 <button
                   className="button"
                   onClick={() => {
-                    if (projects.length === 10) {
+                    if (projects.length === 12) {
                       setPage((old) => old + 1);
                     }
                   }}
-                  disabled={projects.length !== 10}
+                  disabled={projects.length !== 12}
 >
                   Next
 </button>

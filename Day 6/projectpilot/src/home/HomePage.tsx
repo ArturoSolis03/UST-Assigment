@@ -1,29 +1,37 @@
 import { useState } from 'react';
 import SignInForm from '../components/SignInForm';
 import SignUpForm from '../components/SignUpForm';
+import '../App.css';
  
 interface HomePageProps {
   onAuthChange: () => void;
 }
  
 const HomePage = ({ onAuthChange }: HomePageProps) => {
-  const [showSignIn, setShowSignIn] = useState(false);
-  const [showSignUp, setShowSignUp] = useState(false);
+  const [activeTab, setActiveTab] = useState<'signin' | 'signup' | null>(null);
  
   return (
-<div>
-<div className="flex justify-end gap-4 p-4">
-<button onClick={() => { setShowSignIn(true); setShowSignUp(false); }} className="px-4 py-2 bg-blue-500 text-white rounded">
+    <div className="home-container">
+      <div className="button-group">
+        <button
+          onClick={() => setActiveTab('signin')}
+          className={`tab-button ${activeTab === 'signin' ? 'active' : ''}`}
+        >
           Sign In
-</button>
-<button onClick={() => { setShowSignUp(true); setShowSignIn(false); }} className="px-4 py-2 bg-green-500 text-white rounded">
+        </button>
+        <button
+          onClick={() => setActiveTab('signup')}
+          className={`tab-button ${activeTab === 'signup' ? 'active' : ''}`}
+        >
           Sign Up
-</button>
-</div>
+        </button>
+      </div>
  
-      {showSignIn && <SignInForm onClose={() => setShowSignIn(false)} onAuthSuccess={onAuthChange} />}
-      {showSignUp && <SignUpForm onClose={() => setShowSignUp(false)} />}
-</div>
+      {activeTab === 'signin' && (
+        <SignInForm onClose={() => setActiveTab(null)} onAuthSuccess={onAuthChange} />
+      )}
+      {activeTab === 'signup' && <SignUpForm onClose={() => setActiveTab(null)} />}
+    </div>
   );
 };
  

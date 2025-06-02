@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import '../App.css'
  
 interface SignInFormProps {
   onClose: () => void;
@@ -9,45 +10,69 @@ interface SignInFormProps {
  
 const SignInForm = ({ onClose, onAuthSuccess }: SignInFormProps) => {
   const [form, setForm] = useState({ email: '', password: '' });
+  const [errors, setErrors] = useState<{ email?: string; password?: string }>({});
+  const [serverError, setServerError] = useState('');
   const navigate = useNavigate();
+ 
+  const validate = () => {
+    const newErrors: { email?: string; password?: string } = {};
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+ 
+    if (!form.email) newErrors.email = 'Email is required';
+    else if (!emailRegex.test(form.email)) newErrors.email = 'Invalid email format';
+ 
+    if (!form.password) newErrors.password = 'Password is required';
+    else if (form.password.length < 6) newErrors.password = 'Password must be at least 6 characters';
+ 
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
  
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (!validate()) return;
+ 
     try {
       const response = await axios.post('http://localhost:3000/auth/signin', form);
       const token = response.data.accessToken;
       localStorage.setItem('accessToken', token);
-      console.log(localStorage.getItem('accessToken'));
-      onAuthSuccess();  // actualiza el estado de autenticación
-      onClose();        // cierra el modal
+      onAuthSuccess();
+      onClose();
       navigate('/projects');
     } catch (error) {
-      alert('Sign in failed');
+      setServerError('Invalid credentials or server error');
     }
   };
  
   return (
-<form onSubmit={handleSubmit} className="p-4 border rounded shadow-md w-80 mx-auto mt-4 bg-white">
-<h2 className="text-lg font-semibold mb-2">Sign In</h2>
+<form onSubmit={handleSubmit} className="signin-form">
+<h2>Sign In</h2>
+ 
+      {serverError && <div className="error-message">{serverError}</div>}
+ 
+      <div className="form-group">
 <input
-        type="email"
-        placeholder="Email"
-        className="block w-full mb-2 p-2 border rounded"
-        value={form.email}
-        onChange={(e) => setForm({ ...form, email: e.target.value })}
-        required
-      />
+          type="email"
+          placeholder="Email"
+          value={form.email}
+          onChange={(e) => setForm({ ...form, email: e.target.value })}
+          className={errors.email ? 'input-error' : ''}
+        />
+        {errors.email && <span className="error-text">{errors.email}</span>}
+</div>
+ 
+      <div className="form-group">
 <input
-        type="password"
-        placeholder="Password"
-        className="block w-full mb-4 p-2 border rounded"
-        value={form.password}
-        onChange={(e) => setForm({ ...form, password: e.target.value })}
-        required
-      />
-<button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded w-full">
-        Sign In
-</button>
+          type="password"
+          placeholder="Password"
+          value={form.password}
+          onChange={(e) => setForm({ ...form, password: e.target.value })}
+          className={errors.password ? 'input-error' : ''}
+        />
+        {errors.password && <span className="error-text">{errors.password}</span>}
+</div>
+ 
+      <button type="submit">Sign In</button>
 </form>
   );
 };

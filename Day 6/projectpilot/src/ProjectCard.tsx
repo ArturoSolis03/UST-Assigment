@@ -24,7 +24,7 @@ function ProjectCard(props: ProjectCardProps) {
     if (confirmDelete) {
       try {
         const token = localStorage.getItem('accessToken');
-        console.log(localStorage.getItem('accessToken'));
+        
         await projectAPI.delete(project.id, {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -54,7 +54,7 @@ function ProjectCard(props: ProjectCardProps) {
   const handleSaveClick = async () => {
     try {
       const token = localStorage.getItem('accessToken');
-      console.log(localStorage.getItem('accessToken'));
+      
       await projectAPI.update(editedProject.id, editedProject, {
         headers: {
           Authorization: `Bearer ${token}`,
