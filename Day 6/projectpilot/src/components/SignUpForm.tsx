@@ -1,7 +1,6 @@
-
 import { useState } from 'react';
 import axios from 'axios';
-import '../App.css'
+import '../App.css';
  
 interface SignUpFormProps {
   onClose: () => void;
@@ -36,8 +35,21 @@ const SignUpForm = ({ onClose }: SignUpFormProps) => {
     try {
       await axios.post('http://localhost:3000/auth/signup', form);
       onClose();
-    } catch (error) {
-      setServerError('Sign up failed. Please try again.');
+    } catch (error: any) {
+      if (axios.isAxiosError(error) && error.response?.data?.message) {
+        const backendMessage = error.response.data.message;
+ 
+        if (
+          typeof backendMessage === 'string' &&
+          backendMessage.includes('already exists')
+        ) {
+          setServerError('A user with this email already exists.');
+        } else {
+          setServerError(backendMessage);
+        }
+      } else {
+        setServerError('Sign up failed. Please try again.');
+      }
     }
   };
  
