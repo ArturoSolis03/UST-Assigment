@@ -21,12 +21,12 @@ export class AppController {
   @Get()
   @ApiOperation({summary: 'Get all the projects'})
   @ApiQuery({name: 'page', required: false, example: 0})
-  @ApiQuery({name: 'limit', required: false, example: 10})
+  @ApiQuery({name: 'limit', required: false, example: 12})
   async findAll(
     @Query('page') page = '0',
-    @Query('limit') limit = '10',
+    @Query('limit') limit = '12',
   ){
-    const pageNumber = parseInt(page, 10); 
+    const pageNumber = parseInt(page,10); 
     const limitNumber = parseInt(limit, 10);
     return this.appService.getAll(pageNumber, limitNumber);
   }
