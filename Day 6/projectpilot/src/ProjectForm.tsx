@@ -1,56 +1,56 @@
-import { Project } from './components/Projects';
-import type { SyntheticEvent } from 'react';
-import { useState } from 'react';
-import axios from 'axios';
- 
+import { Project } from "./components/Projects";
+import type { SyntheticEvent } from "react";
+import { useState } from "react";
+import axios from "axios";
+
 interface ProjectFormProps {
   project: Project;
   onCancel: () => void;
 }
- 
+
 function ProjectForm({ project: initialProject, onCancel }: ProjectFormProps) {
   const [project, setProject] = useState(initialProject);
   const [errors, setErrors] = useState({
-    name: '',
-    description: '',
-    budget: '',
+    name: "",
+    description: "",
+    budget: "",
   });
   const [isSaving, setIsSaving] = useState(false);
- 
+
   const handleSubmit = async (event: SyntheticEvent) => {
     event.preventDefault();
     if (!isValid()) return;
- 
-    const token = localStorage.getItem('accessToken');
+
+    const token = localStorage.getItem("accessToken");
     if (!token) {
-      alert('You must be signed in to create a project.');
+      alert("You must be signed in to create a project.");
       return;
     }
- 
+
     try {
       setIsSaving(true);
-      await axios.post('http://localhost:3000/projects', project, {
+      await axios.post("http://localhost:3000/projects", project, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
-      alert('Project saved successfully');
+      alert("Project saved successfully");
     } catch (error: any) {
       console.error(error);
-      alert('Error saving project');
+      alert("Error saving project");
     } finally {
       setIsSaving(false);
     }
   };
- 
+
   const handleChange = (event: any) => {
     const { type, name, value, checked } = event.target;
-    let updatedValue = type === 'checkbox' ? checked : value;
-    if (type === 'number') {
+    let updatedValue = type === "checkbox" ? checked : value;
+    if (type === "number") {
       updatedValue = Number(updatedValue);
     }
     const change = { [name]: updatedValue };
- 
+
     let updatedProject: Project;
     setProject((p) => {
       updatedProject = new Project({ ...p, ...change });
@@ -58,24 +58,24 @@ function ProjectForm({ project: initialProject, onCancel }: ProjectFormProps) {
     });
     setErrors(() => validate(updatedProject));
   };
- 
+
   function validate(project: Project) {
-    let errors: any = { name: '', description: '', budget: '' };
+    let errors: any = { name: "", description: "", budget: "" };
     if (project.name.length === 0) {
-      errors.name = 'Name is required';
+      errors.name = "Name is required";
     }
     if (project.name.length > 0 && project.name.length < 3) {
-      errors.name = 'Name needs to be at least 3 characters.';
+      errors.name = "Name needs to be at least 3 characters.";
     }
     if (project.description.length === 0) {
-      errors.description = 'Description is required.';
+      errors.description = "Description is required.";
     }
     if (project.budget === 0) {
-      errors.budget = 'Budget must be more than $0.';
+      errors.budget = "Budget must be more than $0.";
     }
     return errors;
   }
- 
+
   function isValid() {
     return (
       errors.name.length === 0 &&
@@ -83,13 +83,13 @@ function ProjectForm({ project: initialProject, onCancel }: ProjectFormProps) {
       errors.budget.length === 0
     );
   }
- 
+
   return (
-<form className="input-group vertical" onSubmit={handleSubmit}>
+    <form className="input-group vertical" onSubmit={handleSubmit}>
       {isSaving && <span className="toast">Saving...</span>}
- 
+
       <label htmlFor="name">Project Name</label>
-<input
+      <input
         type="text"
         name="name"
         placeholder="enter name"
@@ -97,26 +97,26 @@ function ProjectForm({ project: initialProject, onCancel }: ProjectFormProps) {
         onChange={handleChange}
       />
       {errors.name.length > 0 && (
-<div className="card error">
-<p>{errors.name}</p>
-</div>
+        <div className="card error">
+          <p>{errors.name}</p>
+        </div>
       )}
- 
+
       <label htmlFor="description">Project Description</label>
-<textarea
+      <textarea
         name="description"
         placeholder="enter description"
         value={project.description}
         onChange={handleChange}
       />
       {errors.description.length > 0 && (
-<div className="card error">
-<p>{errors.description}</p>
-</div>
+        <div className="card error">
+          <p>{errors.description}</p>
+        </div>
       )}
- 
+
       <label htmlFor="budget">Project Budget</label>
-<input
+      <input
         type="number"
         name="budget"
         placeholder="enter budget"
@@ -124,30 +124,30 @@ function ProjectForm({ project: initialProject, onCancel }: ProjectFormProps) {
         onChange={handleChange}
       />
       {errors.budget.length > 0 && (
-<div className="card error">
-<p>{errors.budget}</p>
-</div>
+        <div className="card error">
+          <p>{errors.budget}</p>
+        </div>
       )}
- 
+
       <label htmlFor="isActive">Active?</label>
-<input
+      <input
         type="checkbox"
         name="isActive"
         checked={project.isActive}
         onChange={handleChange}
       />
- 
+
       <div className="input-group">
-<button className="primary bordered medium" disabled={isSaving}>
+        <button className="primary bordered medium" disabled={isSaving}>
           Save
-</button>
-<span />
-<button type="button" className="bordered medium" onClick={onCancel}>
+        </button>
+        <span />
+        <button type="button" className="bordered medium" onClick={onCancel}>
           cancel
-</button>
-</div>
-</form>
+        </button>
+      </div>
+    </form>
   );
 }
- 
+
 export default ProjectForm;
