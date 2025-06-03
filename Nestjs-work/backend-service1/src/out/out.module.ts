@@ -1,4 +1,3 @@
-
 import { Module } from '@nestjs/common';
 import { JwtModule } from '@nestjs/jwt';
 import { PassportModule } from '@nestjs/passport';
@@ -8,10 +7,9 @@ import { UserModule } from 'src/users/user.module';
 import { JwtStrategy } from 'src/auth/strategy/jwt.strategy';
 import { JwtRefreshStrategy } from 'src/auth/strategy/jwt-refresh.strategy';
 import { ConfigModule, ConfigService } from '@nestjs/config';
- 
+
 @Module({
   imports: [
-    ConfigModule.forRoot({isGlobal: true}),
     PassportModule,
     JwtModule.registerAsync({
       imports: [ConfigModule],
