@@ -5,7 +5,7 @@ import App from "./App.tsx";
 import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import "@fortawesome/fontawesome-free/css/all.min.css";
-import { BrowserRouter } from "react-router-dom";
+
 
 const queryClient = new QueryClient();
 

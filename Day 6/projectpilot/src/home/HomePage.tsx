@@ -10,7 +10,7 @@ interface HomePageProps {
 }
 
 const HomePage = ({ onAuthChange, isAuthenticated }: HomePageProps) => {
-  const [activeTab, setActiveTab] = useState<"signin" | "signup">("signin");
+  const [activeTab, setActiveTab] = useState<"signin" | "signup" | null>("signin");
 
   if (isAuthenticated) {
     return <Navigate to="/projects" />;
