@@ -40,7 +40,8 @@ const HomePage = ({ onAuthChange, isAuthenticated }: HomePageProps) => {
         />
       )}
       {activeTab === "signup" && (
-        <SignUpForm onClose={() => setActiveTab(null)} />
+        <SignUpForm onClose={() => setActiveTab(null)}
+        onSwitchToSignIn={() => setActiveTab('signin')} />
       )}
     </div>
   );

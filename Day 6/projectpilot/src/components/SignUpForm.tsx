@@ -4,10 +4,12 @@ import "../App.css";
 
 interface SignUpFormProps {
   onClose: () => void;
+  onSwitchToSignIn: () => void;
 }
 
-const SignUpForm = ({ onClose }: SignUpFormProps) => {
+const SignUpForm = ({ onClose, onSwitchToSignIn }: SignUpFormProps) => {
   const [form, setForm] = useState({ name: "", email: "", password: "" });
+  const [successMessage, setSuccessMessage] = useState("");
   const [errors, setErrors] = useState<{
     name?: string;
     email?: string;
@@ -39,7 +41,11 @@ const SignUpForm = ({ onClose }: SignUpFormProps) => {
 
     try {
       await axios.post("http://localhost:3000/auth/signup", form);
-      onClose();
+      setSuccessMessage("User created successfully!");
+      setTimeout(() => {
+        onClose();
+        onSwitchToSignIn();
+      }, 1500);
     } catch (error: any) {
       if (axios.isAxiosError(error) && error.response?.data?.message) {
         const backendMessage = error.response.data.message;
@@ -61,6 +67,10 @@ const SignUpForm = ({ onClose }: SignUpFormProps) => {
   return (
     <form onSubmit={handleSubmit} className="signup-form">
       <h2>Sign Up</h2>
+
+      {successMessage && (
+        <div className="success-message">{successMessage}</div>
+      )}
 
       {serverError && <div className="error-message">{serverError}</div>}
 
