@@ -8,7 +8,7 @@ async function bootstrap() {
 
   //chnange this
   app.enableCors({
-  origin: 'http://localhost:54403', 
+  origin: true, 
   credentials: true, 
 });
 
