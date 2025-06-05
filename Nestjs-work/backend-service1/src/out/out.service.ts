@@ -58,8 +58,23 @@ export class OutService {
       throw new ForbiddenException('Access denied');
     }
 
-    const userObject = user.toJSON();
-    return this.getTokens(userObject.id, userObject.email, userObject.name);
+    try{
+      const payload = this.jwtService.verify(refreshToken, {
+        secret: this.configService.get<string>('REFRESH_TOKEN_SECRET'),
+      });
+
+      if(payload.sub !== userId){
+        throw new ForbiddenException('Token does not match user');
+      }
+
+      const userObject = user.toJSON();
+      return this.getTokens(userObject.id, userObject.email, userObject.name);
+    }catch (err){
+      throw new ForbiddenException('Invalid or expired refresh token');
+    }
+
+    
+
   }
 
   async getTokens(
