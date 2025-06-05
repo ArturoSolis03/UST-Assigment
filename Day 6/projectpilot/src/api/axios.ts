@@ -14,5 +14,26 @@ instance.interceptors.request.use((config) => {
   }
   return config;
 });
+
+instance.interceptors.response.use(
+  response => response,
+  error => {
+    const status = error.response?.status;
+ 
+    if (status === 401 || status === 403) {
+      console.warn('Token expired or unauthorized. Logging out...');
+ 
+      
+      localStorage.removeItem('accessToken');
+ 
+      
+      window.location.href = '/';
+ 
+      
+    }
+ 
+    return Promise.reject(error);
+  }
+);
  
 export default instance;
